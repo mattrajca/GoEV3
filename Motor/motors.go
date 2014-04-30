@@ -29,7 +29,7 @@ func findFilename(port OutPort) string {
 }
 
 // Runs the motor at the given port.
-// speed ranges from -100 to 100 and indicates the target speed of the motor, with negative values indicating reverse motion. Depending on the environment, the actual speed of the motor may be lower than the target speed.
+// `speed` ranges from -100 to 100 and indicates the target speed of the motor, with negative values indicating reverse motion. Depending on the environment, the actual speed of the motor may be lower than the target speed.
 func Run(port OutPort, speed int16) {
 	if speed > 100 || speed < -100 {
 		log.Fatal("The speed must be in range [-100, 100]")

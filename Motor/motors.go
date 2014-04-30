@@ -44,12 +44,12 @@ func Stop(port OutPort) {
 	utilities.WriteIntValue(findFilename(port), "run", 0)
 }
 
-// Reads the actual speed of the motor at the given port.
+// Reads the operating speed of the motor at the given port.
 func CurrentSpeed(port OutPort) int16 {
 	return utilities.ReadInt16Value(findFilename(port), "speed")
 }
 
-// Reads the actual power of the motor at the given port.
+// Reads the operating power of the motor at the given port.
 func CurrentPower(port OutPort) int16 {
 	return utilities.ReadInt16Value(findFilename(port), "power")
 }

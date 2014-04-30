@@ -1,4 +1,4 @@
-// PRIVATE helper functions
+// Private helper functions. Don't use.
 package utilities
 
 import (

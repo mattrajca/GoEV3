@@ -39,37 +39,102 @@
         <ul></ul>
       </nav>
       <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h1>
+<a name="goev3" class="anchor" href="#goev3"><span class="octicon octicon-link"></span></a>GoEV3</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>In 2013, LEGO introduced its third generation Mindstorms robotics set, the <a href="http://en.wikipedia.org/wiki/Lego_Mindstorms_EV3">EV3</a>. Unlike its predecessors, the EV3 runs Linux, giving hackers and hobbyists the opportunity create robots more capable than ever before.</p>
+
+<p>The <a href="">ev3dev project</a> maintains open source, hacker-friendly releases of EV3's operating system. Distributions include built-in <a href="http://en.wikipedia.org/wiki/Secure_Shell">ssh</a> support and custom drivers for EV3's hardware. In fact, a simple file system-based interface can be used to interact with EV3's motors, sensors, buttons, and LEDs. Directories under <code>/sys/class</code> represent various device classes, and setting attributes is as simple as writing to files.</p>
+
+<p>For example, executing the following shell commands will run a motor at 50% speed:</p>
+
+<pre><code>echo  50 &gt; /sys/class/tacho-motor/outA:motor:tacho/speed_setpoint
+echo   1 &gt; /sys/class/tacho-motor/outA:motor:tacho/run
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>This enables third party developers to write EV3 bindings for any programming language/framework that has a file system IO API.</p>
+
+<p>GoEV3 provides EV3 bindings for <a href="http://golang.org">Google Go</a>, allowing developers to take advantage of Go's modern syntax and extensive standard library while programming Mindstorms robots.</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="ev3dev" class="anchor" href="#ev3dev"><span class="octicon octicon-link"></span></a>ev3dev</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>First, we need to install ev3dev onto a Micro SD card (by using an SD card, we can keep EV3's built-in software intact). Instructions for the installation process can be found on <a href="https://github.com/mindboards/ev3dev/wiki/Getting-started-v2">ev3dev's wiki</a>. When you're done, reboot your EV3 and make sure you can ssh into it from your computer.</p>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="google-go" class="anchor" href="#google-go"><span class="octicon octicon-link"></span></a>Google Go</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>Next, we need to install an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney released <a href="http://dave.cheney.net/unofficial-arm-tarballs">builds</a> of Go for various ARM architectures. On your computer, download the ARMv5 package. It works out of the box on the EV3! Once the download completes, transfer it to the EV3 over ssh using <a href="http://en.wikipedia.org/wiki/Secure_copy">scp</a>:</p>
+
+<pre><code>scp /path/to/go1.2.linux-arm~armv5-1.tar.gz root@192.168.3.2:~/go.tar.gz
+</code></pre>
+
+<p>Be sure to replace <code>192.168.3.2</code> with your EV3's IP address. Now we can ssh into the EV3 and extract the archive to its final destination:</p>
+
+<pre><code>cd /usr/local
+tar -xf ~/go.tar.gz
+</code></pre>
+
+<p>Extraction may take a few minutes. Lastly, we'll add Go's <code>bin</code> directory to our shell's path:</p>
+
+<pre><code>echo "export PATH=\$PATH:/usr/local/go/bin" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+
+<p>You should now be able to invoke the <code>go</code> tool like so:</p>
+
+<pre><code>root@ev3dev:~# go version
+go version go1.2 linux/arm
+</code></pre>
 
 <h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a name="goev3-1" class="anchor" href="#goev3-1"><span class="octicon octicon-link"></span></a>GoEV3</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Now that we have Google Go up and running, we need to install GoEV3. First, let's set up our Go workspace:</p>
+
+<pre><code>cd ~
+mkdir gocode
+echo "export GOPATH=\$HOME/gocode" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+
+<p>We can easily obtain GoEV3 from its GitHub repository. Be sure to have internet connection sharing enabled prior to running the following command:</p>
+
+<pre><code>mkdir -p gocode/src/github.com/mattrajca
+cd gocode/src/github.com/mattrajca
+wget -O GoEV3.tar.gz --no-check-certificate https://github.com/mattrajca/GoEV3/archive/master.tar.gz
+tar -xf GoEV3.tar.gz
+mv GoEV3-master GoEV3
+rm GoEV3.tar.gz
+cd ~
+</code></pre>
+
+<p>We should now be able to run the sample program included with GoEV3.</p>
+
+<pre><code>go build github.com/mattrajca/GoEV3
+gocode/bin/GoEV3
+</code></pre>
+
+<p>Choose option <code>6. Motors</code>, plug in a motor to output port A, and watch it turn! Feel free to explore the other modes.</p>
+
+<h2>
+<a name="your-first-program" class="anchor" href="#your-first-program"><span class="octicon octicon-link"></span></a>Your First Program</h2>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>Complete documentation for GoEV3 can be found on <a href="https://godoc.org/github.com/mattrajca/GoEV3">godoc</a>.</p>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>GoEV3 is still in its early stages and subject to API changes as the ev3dev project evolves. Filing issues and submitting pull requests are the two best ways to get involved. Documentation improvements, new APIs, example programs, and bug fixes are all welcome.</p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/mattrajca">mattrajca</a></p>

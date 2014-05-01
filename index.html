@@ -120,6 +120,57 @@ gocode/bin/GoEV3
 <h2>
 <a name="your-first-program" class="anchor" href="#your-first-program"><span class="octicon octicon-link"></span></a>Your First Program</h2>
 
+<p>We'll now write a short Go program that drives a robot forward as long as there are no obstacles. To do this, we'll take advantage of the Sensors and Motor APIs.</p>
+
+<p>First, let's create a new package, <code>example1</code>.</p>
+
+<pre><code>mkdir ~/gocode/src/example1
+cd ~/gocode/src/example1
+nano main.go
+</code></pre>
+
+<p>Now paste in the following code:</p>
+
+<pre><code>package main
+
+import (
+    "github.com/mattrajca/GoEV3/Motor"
+    "github.com/mattrajca/GoEV3/Sensors"
+    "time"
+)
+
+func main() {
+    sensor := Sensors.FindInfraredSensor(Sensors.InPort2)
+
+    Motor.Run(Motor.OutPortA, 40)
+    Motor.Run(Motor.OutPortB, 40)
+
+    for {
+        value := sensor.ReadProximity()
+
+        if value &lt; 50 {
+            break
+        }
+
+        time.Sleep(time.Millisecond * 100)
+    }
+
+    Motor.Stop(Motor.OutPortA)
+    Motor.Stop(Motor.OutPortB)
+}
+</code></pre>
+
+<p>This code assumes we have an infrared sensor attached to input port 2 and two motors attached to output ports A and B.</p>
+
+<p>To run the program, save the file, exit nano, and execute the following command:</p>
+
+<pre><code>go run main.go
+</code></pre>
+
+<p>The motors on ports A and B will start turning. To stop them, simply extend your hand in front of the infrared sensor.</p>
+
+<p>Have fun!</p>
+
 <h2>
 <a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
 

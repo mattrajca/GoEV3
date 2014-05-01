@@ -62,7 +62,7 @@ echo   1 &gt; /sys/class/tacho-motor/outA:motor:tacho/run
 <h3>
 <a name="google-go" class="anchor" href="#google-go"><span class="octicon octicon-link"></span></a>Google Go</h3>
 
-<p>Next, we need to install an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney released <a href="http://dave.cheney.net/unofficial-arm-tarballs">builds</a> of Go for various ARM architectures. On your computer, download the ARMv5 package. It works out of the box on the EV3! Once the download completes, transfer it to the EV3 over ssh using <a href="http://en.wikipedia.org/wiki/Secure_copy">scp</a>:</p>
+<p>Next, we need to install an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney released <a href="http://dave.cheney.net/unofficial-arm-tarballs">builds</a> of Go for various ARM architectures. On your computer, download the latest ARMv5 package (1.2 as of this writing). Once the download completes, transfer it to the EV3 over ssh using <a href="http://en.wikipedia.org/wiki/Secure_copy">scp</a>:</p>
 
 <pre><code>scp /path/to/go1.2.linux-arm~armv5-1.tar.gz root@192.168.3.2:~/go.tar.gz
 </code></pre>

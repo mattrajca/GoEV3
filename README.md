@@ -40,7 +40,7 @@ Extraction may take a few minutes. Once it's done, we'll add Go's `bin` director
 	echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
 	source ~/.bashrc
 
-You should now be able to invoke the `go` tool like so:
+We should now be able to invoke the `go` tool like so:
 
 	root@ev3dev:~# go version
 	go version go1.2 linux/arm

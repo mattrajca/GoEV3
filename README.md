@@ -66,12 +66,12 @@ We can obtain GoEV3 from its GitHub repository. Be sure to have internet connect
 
 Note we're not using `go get` to avoid installing `git` on the EV3.
 
-We should now be able to run the sample program included with GoEV3.
+GoEV3 comes with a sample program that lets us exercise EV3's various hardware capabilities. We can now run it with the following commands:
 
 	go build github.com/mattrajca/GoEV3
 	gocode/bin/GoEV3
 
-Choose option `6. Motors`, plug in a motor to output port A, and watch it turn! Feel free to explore the other modes.
+Choose mode `6. Motors`, plug in a motor to output port A, and watch it turn! Feel free to explore the other modes.
 
 Your First Program
 ------------------

@@ -96,7 +96,7 @@ echo "export GOPATH=\$HOME/gocode" &gt;&gt; ~/.bashrc
 source ~/.bashrc
 </code></pre>
 
-<p>We can easily obtain GoEV3 from its GitHub repository. Be sure to have internet connection sharing enabled prior to running the following command:</p>
+<p>We can obtain GoEV3 from its GitHub repository. Be sure to have internet connection sharing enabled prior to running the following commands:</p>
 
 <pre><code>mkdir -p gocode/src/github.com/mattrajca
 cd gocode/src/github.com/mattrajca
@@ -106,6 +106,8 @@ mv GoEV3-master GoEV3
 rm GoEV3.tar.gz
 cd ~
 </code></pre>
+
+<p>Note we're not using <code>go get</code> to avoid installing <code>git</code> on the EV3.</p>
 
 <p>We should now be able to run the sample program included with GoEV3.</p>
 

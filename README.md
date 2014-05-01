@@ -26,7 +26,7 @@ First, we need to install ev3dev onto a Micro SD card (by using an SD card, we c
 
 ### Google Go
 
-Next, we need to install an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney released [builds](http://dave.cheney.net/unofficial-arm-tarballs) of Go for various ARM architectures. On your computer, download the ARMv5 package. It works out of the box on the EV3! Once the download completes, transfer it to the EV3 over ssh using [scp](http://en.wikipedia.org/wiki/Secure_copy):
+Next, we need to install an ARMv5 build of Google Go. Fortunately for us, Go developer Dave Cheney released [builds](http://dave.cheney.net/unofficial-arm-tarballs) of Go for various ARM architectures. On your computer, download the latest ARMv5 package (1.2 as of this writing). Once the download completes, transfer it to the EV3 over ssh using [scp](http://en.wikipedia.org/wiki/Secure_copy):
 
 	scp /path/to/go1.2.linux-arm~armv5-1.tar.gz root@192.168.3.2:~/go.tar.gz
 

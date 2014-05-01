@@ -54,7 +54,7 @@ Now that we have Google Go up and running, we need to install GoEV3. First, let'
 	echo "export GOPATH=\$HOME/gocode" >> ~/.bashrc
 	source ~/.bashrc
 
-We can easily obtain GoEV3 from its GitHub repository. Be sure to have internet connection sharing enabled prior to running the following command:
+We can obtain GoEV3 from its GitHub repository. Be sure to have internet connection sharing enabled prior to running the following commands:
 
 	mkdir -p gocode/src/github.com/mattrajca
 	cd gocode/src/github.com/mattrajca
@@ -63,6 +63,8 @@ We can easily obtain GoEV3 from its GitHub repository. Be sure to have internet 
 	mv GoEV3-master GoEV3
 	rm GoEV3.tar.gz
 	cd ~
+
+Note we're not using `go get` to avoid installing `git` on the EV3.
 
 We should now be able to run the sample program included with GoEV3.
 

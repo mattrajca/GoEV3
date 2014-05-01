@@ -13,7 +13,7 @@ For example, executing the following shell commands will run a motor at 50% spee
 	echo  50 > /sys/class/tacho-motor/outA:motor:tacho/speed_setpoint
 	echo   1 > /sys/class/tacho-motor/outA:motor:tacho/run
 
-This enables third party developers to write EV3 bindings for any programming language/framework that has a file system IO API.
+This enables third-party developers to write EV3 bindings for any programming language/framework that has a file system IO API.
 
 GoEV3 provides EV3 bindings for [Google Go](http://golang.org) (golang), allowing developers to take advantage of Go's modern syntax and extensive standard library to program Mindstorms robots.
 

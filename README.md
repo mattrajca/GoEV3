@@ -35,7 +35,7 @@ Be sure to replace `192.168.3.2` with your EV3's IP address. Now we can ssh into
 	cd /usr/local
 	tar -xf ~/go.tar.gz
 
-Extraction may take a few minutes. Lastly, we'll add Go's `bin` directory to our shell's path:
+Extraction may take a few minutes. Once it's done, we'll add Go's `bin` directory to our shell's path:
 
 	echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
 	source ~/.bashrc

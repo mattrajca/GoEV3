@@ -81,6 +81,11 @@ Documentation
 
 Complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/mattrajca/GoEV3).
 
+Wireless Connectivity
+---------------------
+
+Since attaching the USB cable isn't always convenient, instructions for setting up Wi-Fi access can be found [here](https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking).
+
 Contributing
 ------------
 

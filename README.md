@@ -122,7 +122,7 @@ To run the program, save the file, exit nano, and execute the following command:
 
 The motors on ports A and B will start turning. To stop them, simply extend your hand in front of the infrared sensor.
 
-Have fun!
+If you prefer writing and compiling Go programs on your computer, you can [cross-compile](http://dave.cheney.net/2012/09/08/an-introduction-to-cross-compilation-with-go) an ARMv5 binary and transfer it to the EV3 over scp.
 
 Documentation
 -------------

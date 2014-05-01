@@ -76,6 +76,54 @@ Choose mode `6. Motors`, plug in a motor to output port A, and watch it turn! Fe
 Your First Program
 ------------------
 
+We'll now write a short Go program that drives a robot forward as long as there are no obstacles. To do this, we'll take advantage of the Sensors and Motor APIs.
+
+First, let's create a new package, `example1`.
+
+	mkdir ~/gocode/src/example1
+	cd ~/gocode/src/example1
+	nano main.go
+
+Now paste in the following code:
+
+	package main
+	
+	import (
+		"github.com/mattrajca/GoEV3/Motor"
+		"github.com/mattrajca/GoEV3/Sensors"
+		"time"
+	)
+	
+	func main() {
+		sensor := Sensors.FindInfraredSensor(Sensors.InPort2)
+		
+		Motor.Run(Motor.OutPortA, 40)
+		Motor.Run(Motor.OutPortB, 40)
+		
+		for {
+			value := sensor.ReadProximity()
+			
+			if value < 50 {
+				break
+			}
+			
+			time.Sleep(time.Millisecond * 100)
+		}
+		
+		Motor.Stop(Motor.OutPortA)
+		Motor.Stop(Motor.OutPortB)
+	}
+
+This code assumes we have an infrared sensor attached to input port 2 and two motors attached to output ports A and B.
+
+To run the program, save the file, exit nano, and execute the following command:
+
+	go run main.go
+
+The motors on ports A and B will start turning. To stop them, simply extend your hand in front of the infrared sensor.
+
+Have fun!
+
 Documentation
 -------------
 

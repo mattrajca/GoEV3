@@ -20,7 +20,7 @@ func FindUltrasonicSensor(port InPort) *UltrasonicSensor {
 	return s
 }
 
-// Reads the distance (in centimeters) reported by the ultrasonic sensor at the given port.
+// Reads the distance (in centimeters) reported by the ultrasonic sensor.
 func (self *UltrasonicSensor) ReadDistance() uint16 {
 	snr := findSensor(self.port, TypeUltrasonic)
 

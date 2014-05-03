@@ -134,6 +134,11 @@ Wireless Connectivity
 
 Since attaching the USB cable isn't always convenient, instructions for setting up Wi-Fi access can be found [here](https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking).
 
+Thread Safety
+-------------
+
+All of GoEV3 is thread-safe.
+
 Contributing
 ------------
 

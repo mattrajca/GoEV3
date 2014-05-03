@@ -11,7 +11,7 @@ import (
 // Speaks the given string of text at the specified volume and speed.
 // `volume` ranges from 0 to 200.
 // `speed` is measured in words per minute.
-func SpeakV(text string, volume uint8, speed uint8) {
+func SpeakWithOptions(text string, volume uint8, speed uint8, async bool) {
 	if volume > 200 {
 		volume = 200
 	}
@@ -23,10 +23,13 @@ func SpeakV(text string, volume uint8, speed uint8) {
 	c2.Stdout = os.Stdout
 	_ = c2.Start()
 	_ = c1.Run()
-	_ = c2.Wait()
+
+	if async == false {
+		_ = c2.Wait()
+	}
 }
 
-// Speaks the given string of text at maximum volume and with a moderate speed.
+// Asynchronously speaks the given string of text at maximum volume and with a moderate speed.
 func Speak(text string) {
-	SpeakV(text, 200, 130)
+	SpeakWithOptions(text, 200, 130, true)
 }

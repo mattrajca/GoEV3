@@ -39,7 +39,7 @@ func CurrentTone() uint32 {
 	return utilities.ReadUInt32Value("/sys/devices/platform/snd-legoev3", "tone")
 }
 
-// Plays a tone at the given frequency for the given duration (in ms).
+// Plays a tone at the given frequency for the given duration (in ms). To play a sequence of tones asynchronously, call PlayTone repeatedly in a goroutine.
 func PlayTone(freq uint32, duration uint64) {
 	utilities.WriteUIntValue("/sys/devices/platform/snd-legoev3", "tone", uint64(freq))
 	time.Sleep(time.Duration(duration) * time.Millisecond)

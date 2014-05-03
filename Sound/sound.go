@@ -8,9 +8,16 @@ import (
 )
 
 // Plays the given wave file at system volume.
+// This function blocks the calling thread until playback completes.
 func Play(path string) {
 	c1 := exec.Command("aplay", path)
 	_ = c1.Run()
+}
+
+// Asynchronously plays the given wave file at system volume.
+func PlayAsync(path string) {
+	c1 := exec.Command("aplay", path)
+	_ = c1.Start()
 }
 
 // Returns the current system volume in range [0, 100].

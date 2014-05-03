@@ -33,7 +33,7 @@ func findFilename() string {
 	return filename
 }
 
-// Waits synchronously for the given button to be pressed.
+// Waits for the given button to be pressed.
 func Wait(kind Kind) {
 	for {
 		bSync.Lock()

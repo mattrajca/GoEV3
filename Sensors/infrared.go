@@ -38,7 +38,7 @@ func (self *InfraredSensor) WaitForProximity() {
 		p1 := self.ReadProximity()
 		time.Sleep(time.Millisecond * 100)
 		p2 := self.ReadProximity()
-		
+
 		if p1 < 20 && p2 < 20 {
 			return
 		}

@@ -172,19 +172,71 @@ func main() {
 <p>If you prefer writing and compiling Go programs on your computer, you can <a href="http://dave.cheney.net/2012/09/08/an-introduction-to-cross-compilation-with-go">cross-compile</a> an ARMv5 binary and transfer it to the EV3 over scp.</p>
 
 <h2>
-<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+<a name="wi-fi-connectivity" class="anchor" href="#wi-fi-connectivity"><span class="octicon octicon-link"></span></a>Wi-Fi Connectivity</h2>
 
-<p>Complete documentation for GoEV3 can be found on <a href="https://godoc.org/github.com/mattrajca/GoEV3">godoc</a>.</p>
+<p>Since attaching a USB cable to the EV3 isn't always convenient, instructions for setting up Wi-Fi access can be found <a href="https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking">here</a>.</p>
 
 <h2>
-<a name="wireless-connectivity" class="anchor" href="#wireless-connectivity"><span class="octicon octicon-link"></span></a>Wireless Connectivity</h2>
+<a name="auto-login--launcher" class="anchor" href="#auto-login--launcher"><span class="octicon octicon-link"></span></a>Auto Login + Launcher</h2>
 
-<p>Since attaching the USB cable isn't always convenient, instructions for setting up Wi-Fi access can be found <a href="https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking">here</a>.</p>
+<p>We can configure the EV3 to automatically log in to a program <a href="https://github.com/mattrajca/GoEV3-Launcher">launcher</a> at boot. First, edit <code>/etc/login.defs</code>:</p>
+
+<pre><code>nano /etc/login.defs
+</code></pre>
+
+<p>Add the following line: <code>NO_PASSWORD_CONSOLE tty1:tty2:tty3:tty4:tty5:tty6</code></p>
+
+<p>Now let's edit <code>/etc/inittab</code>:</p>
+
+<pre><code>nano /etc/inittab
+</code></pre>
+
+<p>Find a line similar to <code>1:2345:respawn:/sbin/getty 38400 tty1</code> and change it to:</p>
+
+<pre><code>1:2345:respawn:/sbin/getty --autologin root 38400 tty1
+</code></pre>
+
+<p>The EV3 will now automatically log in at boot. Next, we need to obtain the GoEV3 Launcher:</p>
+
+<pre><code>cd ~/gocode/src/github.com/mattrajca
+wget -O Launcher.tar.gz --no-check-certificate https://github.com/mattrajca/GoEV3-Launcher/archive/master.tar.gz
+tar -xf Launcher.tar.gz
+mv GoEV3-Launcher-master Launcher
+rm Launcher.tar.gz
+cd ~
+</code></pre>
+
+<p>Let's build it and try it out:</p>
+
+<pre><code>go install github.com/mattrajca/Launcher
+gocode/bin/Launcher
+</code></pre>
+
+<p>Select <code>GoEV3</code> and hit the Enter (center) button on the EV3.</p>
+
+<p>Finally, let's configure the Launcher to run on login:</p>
+
+<pre><code>nano ~/.bashrc
+</code></pre>
+
+<p>Add the following lines to the end of the file:</p>
+
+<pre><code>if [ -z "$SSH_CLIENT" ]; then
+    $GOPATH/bin/Launcher
+fi
+</code></pre>
+
+<p>The GoEV3 Launcher will now run automatically on boot. Reboot the EV3 to try it out.</p>
 
 <h2>
 <a name="thread-safety" class="anchor" href="#thread-safety"><span class="octicon octicon-link"></span></a>Thread Safety</h2>
 
-<p>All of GoEV3 is thread-safe.</p>
+<p>All function and method calls in GoEV3 are thread-safe.</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>The complete documentation for GoEV3 can be found on <a href="https://godoc.org/github.com/mattrajca/GoEV3">godoc</a>.</p>
 
 <h2>
 <a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>

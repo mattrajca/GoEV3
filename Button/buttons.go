@@ -7,10 +7,12 @@ import (
 	"log"
 	"os"
 	"sync"
-	"time"
 )
 
+var bPressedMap map[Kind]bool
+
 var bSync = &sync.Mutex{}
+var bMapLock = &sync.Mutex{}
 
 // Constants for the brick's buttons.
 type Kind uint8
@@ -44,6 +46,8 @@ func Wait(kind Kind) {
 		f.Read(b)
 		f.Close()
 
+		bSync.Unlock()
+
 		codeData := b[10:11]
 		valueData := b[12:13]
 
@@ -55,38 +59,60 @@ func Wait(kind Kind) {
 		var value int8
 		binary.Read(buf2, binary.BigEndian, &value)
 
-		bSync.Unlock()
-
 		if value == 0 && code == int8(kind) {
 			break
 		}
 	}
 }
 
-// Asynchronously waits for the given button to be pressed. `kind` is passed back to the given channel.
-func WaitOnChannel(kind Kind, queue chan Kind) {
+// Watches for button presses in a background thread. Use `IsPressed` to query the current state.
+func Watch() {
+	bPressedMap = make(map[Kind]bool)
+
 	go func() {
-		Wait(kind)
-		queue <- kind
+		for {
+			bSync.Lock()
+
+			f, _ := os.OpenFile(findFilename(), os.O_RDONLY, 0644)
+			b := make([]byte, 16)
+			f.Read(b)
+			f.Close()
+
+			bSync.Unlock()
+
+			codeData := b[10:11]
+			valueData := b[12:13]
+
+			buf := bytes.NewBuffer(codeData)
+			var code int8
+			binary.Read(buf, binary.BigEndian, &code)
+
+			buf2 := bytes.NewBuffer(valueData)
+			var value int8
+			binary.Read(buf2, binary.BigEndian, &value)
+
+			bMapLock.Lock()
+
+			if value == 0 {
+				bPressedMap[Kind(code)] = true
+			} else {
+				bPressedMap[Kind(code)] = false
+			}
+
+			bMapLock.Unlock()
+		}
 	}()
 }
 
-// Waits for the given button to be pressed in a time window.
-func WaitWithTimeout(kind Kind, t time.Duration) {
-	c1 := make(chan Kind, 1)
+// Checks if the given button is currently pressed. This call must be preceded with a call to `Watch`.
+func IsPressed(kind Kind) bool {
+	var result bool
 
-	WaitOnChannel(kind, c1)
+	bMapLock.Lock()
+	result = bPressedMap[kind]
+	bMapLock.Unlock()
 
-	select {
-	case <-c1:
-		{
-
-		}
-	case <-time.After(t):
-		{
-
-		}
-	}
+	return result
 }
 
 // Waits for any button to be pressed.
@@ -99,6 +125,8 @@ func WaitAny() Kind {
 		f.Read(b)
 		f.Close()
 
+		bSync.Unlock()
+
 		codeData := b[10:11]
 		valueData := b[12:13]
 
@@ -109,8 +137,6 @@ func WaitAny() Kind {
 		buf2 := bytes.NewBuffer(valueData)
 		var value int8
 		binary.Read(buf2, binary.BigEndian, &value)
-
-		bSync.Unlock()
 
 		if value == 0 {
 			return Kind(code)

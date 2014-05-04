@@ -61,3 +61,32 @@ func Wait(kind Kind) {
 		}
 	}
 }
+
+// Waits for any button to be pressed.
+func WaitAny() Kind {
+	for {
+		bSync.Lock()
+
+		f, _ := os.OpenFile(findFilename(), os.O_RDONLY, 0644)
+		b := make([]byte, 16)
+		f.Read(b)
+		f.Close()
+
+		codeData := b[10:11]
+		valueData := b[12:13]
+
+		buf := bytes.NewBuffer(codeData)
+		var code int8
+		binary.Read(buf, binary.BigEndian, &code)
+
+		buf2 := bytes.NewBuffer(valueData)
+		var value int8
+		binary.Read(buf2, binary.BigEndian, &value)
+
+		bSync.Unlock()
+
+		if value == 0 {
+			return Kind(code)
+		}
+	}
+}

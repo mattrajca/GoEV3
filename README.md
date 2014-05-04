@@ -124,18 +124,21 @@ The motors on ports A and B will start turning. To stop them, simply extend your
 
 If you prefer writing and compiling Go programs on your computer, you can [cross-compile](http://dave.cheney.net/2012/09/08/an-introduction-to-cross-compilation-with-go) an ARMv5 binary and transfer it to the EV3 over scp.
 
-Wireless Connectivity
----------------------
+Wi-Fi Connectivity
+------------------
 
 Since attaching a USB cable to the EV3 isn't always convenient, instructions for setting up Wi-Fi access can be found [here](https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking).
 
-We can also configure the EV3 to automatically log in to a program launcher at boot. First, edit `/etc/login.defs`:
+Auto Login + Launcher
+---------------------
+
+We can configure the EV3 to automatically log in to a program launcher at boot. First, edit `/etc/login.defs`:
 
 	nano /etc/login.defs
 
 Add the following line: `NO_PASSWORD_CONSOLE tty1:tty2:tty3:tty4:tty5:tty6`
 
-Next, edit `/etc/inittab`:
+Now let's edit `/etc/inittab`:
 
 	nano /etc/inittab
 
@@ -143,7 +146,33 @@ Find a line similar to `1:2345:respawn:/sbin/getty 38400 tty1` and change it to:
 
 	1:2345:respawn:/sbin/getty --autologin root 38400 tty1
 
-The EV3 will now automatically log in at boot.
+The EV3 will now automatically log in at boot. Next, we need to obtain the GoEV3 Launcher:
+
+	cd ~/gocode/src/github.com/mattrajca
+	wget -O Launcher.tar.gz --no-check-certificate https://github.com/mattrajca/GoEV3-Launcher/archive/master.tar.gz
+	tar -xf Launcher.tar.gz
+	mv GoEV3-Launcher-master Launcher
+	rm Launcher.tar.gz
+	cd ~
+
+Let's build it and try it out:
+
+	go install github.com/mattrajca/Launcher
+	gocode/bin/Launcher
+
+Select `GoEV3` and hit the Enter (center) button on the EV3.
+
+Finally, let's configure the Launcher to run on login:
+
+	nano ~/.bashrc
+
+Add the following lines to the end of the file:
+
+	if [ -z "$SSH_CLIENT" ]; then
+		$GOPATH/bin/Launcher
+	fi
+
+The GoEV3 Launcher will now run automatically on boot. Reboot the EV3 to try it out.
 
 Thread Safety
 -------------

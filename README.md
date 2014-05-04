@@ -134,6 +134,22 @@ Wireless Connectivity
 
 Since attaching a USB cable to the EV3 isn't always convenient, instructions for setting up Wi-Fi access can be found [here](https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking).
 
+We can also configure the EV3 to automatically log in to a program launcher at boot. First, edit `/etc/login.defs`:
+
+	nano /etc/login.defs
+
+Add the following line: `NO_PASSWORD_CONSOLE tty1:tty2:tty3:tty4:tty5:tty6`
+
+Next, edit `/etc/inittab`:
+
+	nano /etc/inittab
+
+Find a line similar to `1:2345:respawn:/sbin/getty 38400 tty1` and change it to:
+
+	1:2345:respawn:/sbin/getty --autologin root 38400 tty1
+
+The EV3 will now automatically log in at boot.
+
 Thread Safety
 -------------
 

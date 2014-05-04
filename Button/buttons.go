@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 var bSync = &sync.Mutex{}
@@ -58,6 +59,32 @@ func Wait(kind Kind) {
 
 		if value == 0 && code == int8(kind) {
 			break
+		}
+	}
+}
+
+// Asynchronously waits for the given button to be pressed. `kind` is passed back to the given channel.
+func WaitOnChannel(kind Kind, queue chan Kind) {
+	go func() {
+		Wait(kind)
+		queue <- kind
+	}()
+}
+
+// Waits for the given button to be pressed in a time window.
+func WaitWithTimeout(kind Kind, t time.Duration) {
+	c1 := make(chan Kind, 1)
+
+	WaitOnChannel(kind, c1)
+
+	select {
+	case <-c1:
+		{
+
+		}
+	case <-time.After(t):
+		{
+
 		}
 	}
 }

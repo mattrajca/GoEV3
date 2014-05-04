@@ -132,7 +132,7 @@ The complete documentation for GoEV3 can be found on [godoc](https://godoc.org/g
 Wireless Connectivity
 ---------------------
 
-Since attaching the USB cable isn't always convenient, instructions for setting up Wi-Fi access can be found [here](https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking).
+Since attaching a USB cable to the EV3 isn't always convenient, instructions for setting up Wi-Fi access can be found [here](https://github.com/mindboards/ev3dev/wiki/Setting-Up-wifi-Networking).
 
 Thread Safety
 -------------

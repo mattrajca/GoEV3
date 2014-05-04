@@ -124,11 +124,6 @@ The motors on ports A and B will start turning. To stop them, simply extend your
 
 If you prefer writing and compiling Go programs on your computer, you can [cross-compile](http://dave.cheney.net/2012/09/08/an-introduction-to-cross-compilation-with-go) an ARMv5 binary and transfer it to the EV3 over scp.
 
-Documentation
--------------
-
-The complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/mattrajca/GoEV3).
-
 Wireless Connectivity
 ---------------------
 
@@ -154,6 +149,11 @@ Thread Safety
 -------------
 
 All function and method calls in GoEV3 are thread-safe.
+
+Documentation
+-------------
+
+The complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/mattrajca/GoEV3).
 
 Contributing
 ------------

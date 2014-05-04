@@ -127,7 +127,7 @@ If you prefer writing and compiling Go programs on your computer, you can [cross
 Documentation
 -------------
 
-Complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/mattrajca/GoEV3).
+The complete documentation for GoEV3 can be found on [godoc](https://godoc.org/github.com/mattrajca/GoEV3).
 
 Wireless Connectivity
 ---------------------
@@ -137,7 +137,7 @@ Since attaching the USB cable isn't always convenient, instructions for setting 
 Thread Safety
 -------------
 
-All of GoEV3 is thread-safe.
+All function and method calls in GoEV3 are thread-safe.
 
 Contributing
 ------------

@@ -15,7 +15,7 @@ For example, executing the following shell commands will run a motor at 50% spee
 
 This enables third-party developers to write EV3 bindings for any programming language that has a file system IO API.
 
-GoEV3 provides EV3 bindings for [Google Go](http://golang.org) (golang), enabling developers to take advantage of Go's modern syntax and extensive standard library to program Mindstorms robots.
+GoEV3 provides EV3 bindings for [Google Go](http://golang.org) (golang), enabling Mindstorms robot programmers to take advantage of Go's modern syntax and extensive standard library.
 
 Getting Started
 ---------------

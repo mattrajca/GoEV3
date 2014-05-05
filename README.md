@@ -132,7 +132,7 @@ Since attaching a USB cable to the EV3 isn't always convenient, instructions for
 Auto Login + Launcher
 ---------------------
 
-We can configure the EV3 to automatically log in to a program [launcher](https://github.com/mattrajca/GoEV3-Launcher) at boot. First, edit `/etc/login.defs`:
+We can configure the EV3 to automatically log in to a program launcher at boot. The [GoEV3 Launcher](https://github.com/mattrajca/GoEV3-Launcher) will prompt us to run any Go program found in the `GOPATH/bin` directory. First, edit `/etc/login.defs`:
 
 	nano /etc/login.defs
 

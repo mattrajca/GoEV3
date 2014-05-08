@@ -210,7 +210,7 @@ func main() {
 			}
 		} else if button == Button.Enter {
 			dispatchCommand(selection)
-		} else if button == Butter.Escape {
+		} else if button == Button.Escape {
 			return
 		}
 	}

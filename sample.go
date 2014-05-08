@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"github.com/mattrajca/GoEV3/Button"
 	"github.com/mattrajca/GoEV3/LED"
@@ -9,8 +8,6 @@ import (
 	"github.com/mattrajca/GoEV3/Sensors"
 	"github.com/mattrajca/GoEV3/Sound"
 	"github.com/mattrajca/GoEV3/TTS"
-	"os"
-	"strings"
 	"time"
 )
 
@@ -140,51 +137,79 @@ func testLEDs() {
 	}
 }
 
+func dispatchCommand(selection int) {
+	switch selection {
+	case 0:
+		{
+			testTouchAndSound()
+		}
+	case 1:
+		{
+			testUltrasonic()
+		}
+	case 2:
+		{
+			testInfrared()
+		}
+	case 3:
+		{
+			testColor()
+		}
+	case 4:
+		{
+			testTTSAndButtons()
+		}
+	case 5:
+		{
+			testMotors()
+		}
+	case 6:
+		{
+			testLEDs()
+		}
+	}
+}
+
 func main() {
 	for {
-		fmt.Println("\nWhat would you like to test? Press Control+C to exit.")
+		fmt.Println("\nWhat would you like to test? Press Escape to exit.")
 
-		fmt.Println("1. Touch sensor and sound")
-		fmt.Println("2. Ultrasonic sensor")
-		fmt.Println("3. Infrared sensor")
-		fmt.Println("4. Color sensor")
-		fmt.Println("5. Speech and brick buttons")
-		fmt.Println("6. Motors")
-		fmt.Println("7. LEDs")
+		selection := int(0)
 
-		bio := bufio.NewReader(os.Stdin)
-		lineData, _, _ := bio.ReadLine()
-		selection := strings.TrimSpace(string(lineData))
+		var entries = [7]string{
+			"Touch sensor and sound",
+			"Ultrasonic sensor",
+			"Infrared sensor",
+			"Color sensor",
+			"Speech and brick buttons",
+			"Motors",
+			"LEDs",
+		}
 
-		switch selection {
-		case "1":
-			{
-				testTouchAndSound()
+		for i, f := range entries {
+			checked := " "
+
+			if i == selection {
+				checked = "X"
 			}
-		case "2":
-			{
-				testUltrasonic()
+
+			fmt.Printf("[%s] %s\n", checked, f)
+		}
+
+		fmt.Print("\n")
+
+		button := Button.WaitAny()
+
+		if button == Button.Down {
+			if selection < len(entries)-1 {
+				selection++
 			}
-		case "3":
-			{
-				testInfrared()
+		} else if button == Button.Up {
+			if selection > 0 {
+				selection--
 			}
-		case "4":
-			{
-				testColor()
-			}
-		case "5":
-			{
-				testTTSAndButtons()
-			}
-		case "6":
-			{
-				testMotors()
-			}
-		case "7":
-			{
-				testLEDs()
-			}
+		} else if button == Button.Enter {
+			dispatchCommand(selection)
 		}
 	}
 }

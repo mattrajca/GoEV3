@@ -171,10 +171,10 @@ func dispatchCommand(selection int) {
 }
 
 func main() {
+	selection := int(0)
+
 	for {
 		fmt.Println("\nWhat would you like to test? Press Escape to exit.")
-
-		selection := int(0)
 
 		var entries = [7]string{
 			"Touch sensor and sound",

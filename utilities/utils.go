@@ -2,11 +2,11 @@
 package utilities
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
 	"sync"
+	"path"
 )
 
 var gLocks map[string]*sync.RWMutex
@@ -27,7 +27,7 @@ func ensureLockForFilename(filename string) {
 }
 
 func ReadStringValue(filename string, basename string) string {
-	actualFilename := fmt.Sprintf("%s/%s", filename, basename)
+	actualFilename := path.Join(filename, basename)
 	ensureLockForFilename(actualFilename)
 
 	gLocks[actualFilename].RLock()
@@ -64,7 +64,7 @@ func ReadUInt32Value(filename string, basename string) uint32 {
 }
 
 func WriteStringValue(filename string, basename string, value string) {
-	actualFilename := fmt.Sprintf("%s/%s", filename, basename)
+	actualFilename := path.Join(filename, basename)
 	ensureLockForFilename(actualFilename)
 
 	gLocks[actualFilename].Lock()

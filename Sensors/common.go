@@ -23,10 +23,10 @@ const (
 type Type string
 
 const (
-	TypeTouch      Type = "16"
-	TypeColor           = "29"
-	TypeUltrasonic      = "30"
-	TypeInfrared        = "33"
+	TypeTouch      Type = "ev3-uart-16"
+	TypeColor           = "ev3-uart-29"
+	TypeUltrasonic      = "ev3-uart-30"
+	TypeInfrared        = "ev3-uart-33"
 )
 
 func (self Type) String() string {
@@ -53,8 +53,8 @@ func findSensor(port InPort, t Type) string {
 			portr := utilities.ReadStringValue(sensorPath, "port_name")
 
 			if InPort(portr) == port {
-				typer := utilities.ReadStringValue(sensorPath, "type_id")
-
+				typer := utilities.ReadStringValue(sensorPath, "name")
+        
 				if Type(typer) == t {
 					return item.Name()
 				}

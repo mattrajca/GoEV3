@@ -27,7 +27,7 @@ const (
 )
 
 func findFilename() string {
-	filename := "/dev/input/by-path/platform-gpio-keys.0-event"
+	filename := "/dev/input/by-path/platform-gpio_keys-event"
 
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		log.Fatal("Cannot find keys file")
